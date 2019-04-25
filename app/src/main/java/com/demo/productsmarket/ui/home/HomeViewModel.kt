@@ -25,10 +25,12 @@ class HomeViewModel @Inject constructor(private val repository: ProductsReposito
 
         loadingLiveData.value = true
         repository.getProducts(object : RepoCallback<List<Product>> {
-            override fun onSuccess(t: List<Product>) {
+            override fun onSuccess(t: List<Product>, isFinished: Boolean) {
                 val list = getViewProductList(t)
                 productsLiveData.postValue(list)
-                loadingLiveData.postValue(false)
+
+                if (isFinished)
+                    loadingLiveData.postValue(false)
             }
 
             override fun onError(msg: String?) {

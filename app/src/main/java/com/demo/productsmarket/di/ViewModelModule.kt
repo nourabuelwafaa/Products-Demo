@@ -3,6 +3,7 @@ package com.demo.productsmarket.di
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.demo.productsmarket.ui.home.HomeViewModel
+import com.demo.productsmarket.ui.home.details.ProductDetailsViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -31,6 +32,11 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
-    internal abstract fun postListViewModel(viewModel: HomeViewModel): ViewModel
+    internal abstract fun productsViewModel(viewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProductDetailsViewModel::class)
+    internal abstract fun productDetailsViewModel(viewModel: ProductDetailsViewModel): ViewModel
 
 }

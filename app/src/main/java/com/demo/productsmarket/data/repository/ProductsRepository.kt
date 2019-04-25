@@ -28,18 +28,29 @@ class ProductsRepository @Inject constructor(
         appHandler.post {
 
             val products = localDataSource.getProducts()
-            callback.onSuccess(products)
+            callback.onSuccess(products, isFinished = false)
 
             remoteDataSource.getProducts().enqueue(object : ResponseWrapper<ProductResponse>() {
                 override fun onResponse(apiResponse: ApiResponse<ProductResponse>) {
-                    if (apiResponse.response != null)
-                        callback.onSuccess(apiResponse.response!!.products)
-                    else callback.onError(apiResponse.error)
+                    if (apiResponse.response != null) {
+                        callback.onSuccess(apiResponse.response!!.products, isFinished = true)
+                        insertProducts(apiResponse.response!!.products)
+                    } else callback.onError(apiResponse.error)
                 }
 
             })
         }
 
+    }
+
+    fun getProduct(productId: Int, repoCallback: RepoCallback<Product>) {
+
+        appHandler.post {
+
+            val product = localDataSource.getProduct(productId)
+            repoCallback.onSuccess(product, isFinished = true)
+
+        }
     }
 
 

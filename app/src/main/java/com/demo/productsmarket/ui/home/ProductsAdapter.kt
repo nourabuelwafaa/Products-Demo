@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.demo.productsmarket.R
 import com.demo.productsmarket.ui.home.model.ViewProduct
+import com.demo.productsmarket.utils.adjustHeight
 import com.demo.productsmarket.utils.dpToPixel
 import com.demo.productsmarket.utils.loadUrl
 
@@ -34,12 +35,10 @@ internal class ProductsAdapter(
         layoutParams.topMargin = if (position == 0) context.dpToPixel(16).toInt() else context.dpToPixel(6).toInt()
         holder.titleTv.text = item.name
         holder.priceTv.text = item.price
-        holder.productIv.loadUrl(item.image.link)
         holder.itemView.setOnClickListener { onItemClick(item) }
-        holder.productIv.layoutParams.height = item.image.height
-        val cellWidth = Resources.getSystem().displayMetrics.widthPixels - context.dpToPixel(32)
-        val imageHeight = cellWidth * item.image.height / item.image.width
-        holder.productIv.layoutParams.height = imageHeight.toInt()
+
+        holder.productIv.loadUrl(item.image.link)
+        holder.productIv.adjustHeight(item.image.height, item.image.width, 32)
 
     }
 

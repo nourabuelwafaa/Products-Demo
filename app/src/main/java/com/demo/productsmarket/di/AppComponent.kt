@@ -1,6 +1,7 @@
 package com.demo.productsmarket.di
 
 import com.demo.productsmarket.ui.home.MainActivity
+import com.demo.productsmarket.ui.home.details.ProductDetailsActivity
 import dagger.Component
 
 @Component(
@@ -15,4 +16,6 @@ import dagger.Component
 interface AppComponent {
 
     fun inject(activity: MainActivity)
+    fun inject(activity: ProductDetailsActivity)
+
 }

@@ -13,6 +13,7 @@ import com.demo.productsmarket.R
 import com.demo.productsmarket.di.ApiModule
 import com.demo.productsmarket.di.DaggerAppComponent
 import com.demo.productsmarket.di.DbModule
+import com.demo.productsmarket.ui.home.details.ProductDetailsActivity
 import com.demo.productsmarket.ui.home.model.ViewProduct
 import javax.inject.Inject
 
@@ -39,6 +40,9 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
 
         val adapter = ProductsAdapter(productsList) {
+
+            ProductDetailsActivity.navigate(this, it.id)
+
 
         }
 
