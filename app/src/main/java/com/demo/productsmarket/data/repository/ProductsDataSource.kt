@@ -8,4 +8,6 @@ interface ProductsDataSource {
     fun insertProducts(products: List<Product>)
 
     fun getProducts(callback: RepoCallback<List<Product>>)
+
+    fun getProduct(productId: Int, repoCallback: RepoCallback<Product>)
 }

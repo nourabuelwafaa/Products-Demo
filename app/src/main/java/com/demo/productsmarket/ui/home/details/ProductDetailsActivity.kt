@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.demo.productsmarket.R
 import com.demo.productsmarket.di.ApiModule
+import com.demo.productsmarket.di.AppModule
 import com.demo.productsmarket.di.DaggerAppComponent
 import com.demo.productsmarket.di.DbModule
 import com.demo.productsmarket.utils.adjustHeight
@@ -107,6 +108,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private fun injectActivity() {
         DaggerAppComponent.builder()
             .apiModule(ApiModule())
+            .appModule(AppModule(application))
             .dbModule(DbModule(application))
             .build()
             .inject(this)

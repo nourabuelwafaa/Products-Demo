@@ -5,12 +5,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+/**
+ * Class for taking out boilerplate checking for network requests
+ */
 abstract class ResponseWrapper<T> : Callback<T> {
 
-
     private val apiResponse = ApiResponse<T>()
-
-
 
     override fun onResponse(call: Call<T>, response: Response<T>) {
         handleResponse(response)
@@ -30,7 +30,6 @@ abstract class ResponseWrapper<T> : Callback<T> {
         onResponse(apiResponse)
 
     }
-
 
 
     abstract fun onResponse(apiResponse: ApiResponse<T>)

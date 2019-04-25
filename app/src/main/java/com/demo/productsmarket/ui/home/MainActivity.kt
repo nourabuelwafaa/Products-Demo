@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.demo.productsmarket.R
 import com.demo.productsmarket.di.ApiModule
+import com.demo.productsmarket.di.AppModule
 import com.demo.productsmarket.di.DaggerAppComponent
 import com.demo.productsmarket.di.DbModule
 import com.demo.productsmarket.ui.home.details.ProductDetailsActivity
@@ -96,6 +97,7 @@ class MainActivity : AppCompatActivity() {
     private fun injectActivity() {
         DaggerAppComponent.builder()
             .apiModule(ApiModule())
+            .appModule(AppModule(application))
             .dbModule(DbModule(application))
             .build()
             .inject(this)

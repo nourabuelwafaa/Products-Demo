@@ -4,6 +4,9 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 
+/**
+ * This class is used by Repositories for making heavy operations
+ */
 class AppHandler {
 
     private val handlerThread: HandlerThread = HandlerThread("MyHandlerThread")

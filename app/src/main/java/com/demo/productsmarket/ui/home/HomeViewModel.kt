@@ -1,15 +1,22 @@
 package com.demo.productsmarket.ui.home
 
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.content.Context
 import com.demo.productsmarket.data.Product
 import com.demo.productsmarket.data.repository.ProductsRepository
 import com.demo.productsmarket.data.repository.RepoCallback
 import com.demo.productsmarket.ui.home.model.ViewProduct
+import com.demo.productsmarket.utils.isConnected
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(private val repository: ProductsRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val repository: ProductsRepository,
+    private val appContext: Application
+) : ViewModel() {
 
     private val productsLiveData: MutableLiveData<List<ViewProduct>> = MutableLiveData()
     private val errorMsgLiveData: MutableLiveData<String> = MutableLiveData()
@@ -22,7 +29,7 @@ class HomeViewModel @Inject constructor(private val repository: ProductsReposito
 
 
     fun getProducts() {
-
+        val isConnected = appContext.applicationContext.isConnected()
         loadingLiveData.value = true
         repository.getProducts(object : RepoCallback<List<Product>> {
             override fun onSuccess(t: List<Product>, isFinished: Boolean) {
@@ -34,7 +41,10 @@ class HomeViewModel @Inject constructor(private val repository: ProductsReposito
             }
 
             override fun onError(msg: String?) {
-                errorMsgLiveData.postValue(msg ?: "Connection Error, Try again later..")
+                errorMsgLiveData.postValue(
+                    if (!isConnected) "Please check your internet connection"
+                    else msg ?: "Connection Error, Try again later.."
+                )
                 loadingLiveData.postValue(false)
 
             }
@@ -43,6 +53,8 @@ class HomeViewModel @Inject constructor(private val repository: ProductsReposito
 
     }
 
+    /** mapper function from List<Product> to List<ViewProduct>
+     */
     private fun getViewProductList(list: List<Product>): List<ViewProduct> {
         return list.map {
             ViewProduct(

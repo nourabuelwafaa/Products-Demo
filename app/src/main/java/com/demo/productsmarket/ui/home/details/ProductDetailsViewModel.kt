@@ -31,6 +31,8 @@ class ProductDetailsViewModel @Inject constructor(private val repository: Produc
 
     }
 
+    /** mapper function from Product to ViewProductDetails
+     */
     private fun getViewProductDetails(product: Product): ViewProductDetails {
         return ViewProductDetails(
             product.name,

@@ -10,7 +10,8 @@ import com.demo.productsmarket.data.remote.ResponseWrapper
 
 import javax.inject.Inject
 
-class ProductsRepository @Inject constructor(
+
+open class ProductsRepository @Inject constructor(
     private val localDataSource: ProductsDao,
     private val remoteDataSource: ProductsApiServices,
     private val appHandler: AppHandler
@@ -43,7 +44,7 @@ class ProductsRepository @Inject constructor(
 
     }
 
-    fun getProduct(productId: Int, repoCallback: RepoCallback<Product>) {
+    override fun getProduct(productId: Int, repoCallback: RepoCallback<Product>) {
 
         appHandler.post {
 

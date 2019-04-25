@@ -29,6 +29,9 @@ data class ProductResponse(
 
 )
 
+/**
+ * Conveter usd by Room Db to convert complex data types
+ */
 object ImageConverter {
 
     @TypeConverter
